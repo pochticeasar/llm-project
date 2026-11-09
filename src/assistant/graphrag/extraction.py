@@ -4,7 +4,7 @@ import json
 import logging
 from dataclasses import dataclass, field
 
-from pydantic import BaseModel, ConfigDict, ValidationError
+from pydantic import BaseModel, ConfigDict, ValidationError, field_validator
 
 from assistant.infra.config import vocabulary
 from assistant.infra.grounding import CODE_TYPES, canonical_name, code_type, find_codes, find_names
@@ -23,10 +23,21 @@ LOGGER = logging.getLogger(__name__)
 MAX_EXTRACTION_TOKENS = 8192
 
 
+def _require_entity_type(value: str) -> str:
+    if value not in ENTITY_TYPES:
+        raise ValueError("Тип сущности отсутствует в ENTITY_TYPES")
+    return value
+
+
 class _EntityPayload(BaseModel):
     model_config = ConfigDict(strict=True)
     type: str
     name: str
+
+    @field_validator("type")
+    @classmethod
+    def known_entity_type(cls, value: str) -> str:
+        return _require_entity_type(value)
 
 
 class _RelationPayload(BaseModel):
@@ -36,6 +47,18 @@ class _RelationPayload(BaseModel):
     type: str
     object_type: str
     object: str
+
+    @field_validator("subject_type", "object_type")
+    @classmethod
+    def known_endpoint_type(cls, value: str) -> str:
+        return _require_entity_type(value)
+
+    @field_validator("type")
+    @classmethod
+    def known_relation_type(cls, value: str) -> str:
+        if value not in RELATION_SIGNATURES:
+            raise ValueError("Тип отношения отсутствует в RELATION_SIGNATURES")
+        return value
 
 
 class _ExtractionPayload(BaseModel):
@@ -174,7 +197,8 @@ def extract_with_diagnostics(
                 messages = [*messages, {"role": "user", "content": (
                     "Предыдущий ответ не соответствует JSON-схеме. Повтори извлечение из того же "
                     "фрагмента: entities и relations — массивы объектов, все значения полей — строки, "
-                    "все обязательные поля присутствуют. Верни полный JSON без пояснений."
+                    "все обязательные поля присутствуют, типы только из перечислений схемы. "
+                    "Верни полный JSON без пояснений."
                 )}]
     if payload is None:
         diagnostics.status = "invalid_response"

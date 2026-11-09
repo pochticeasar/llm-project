@@ -125,3 +125,15 @@ def test_a_part_cannot_replace_itself_even_if_both_spellings_are_grounded():
     ]))
     assert result.relations == [] and result.dropped == 1
     assert diagnostics.rejected_relations[0]["reason"] == "self_replacement"
+
+
+@pytest.mark.parametrize("invalid", [
+    response(entities=[{"type": "Unknown", "name": "P-1042"}]),
+    response(relations=[dict(RELATION, subject_type="Unknown")]),
+    response(relations=[dict(RELATION, object_type="Unknown")]),
+    response(relations=[dict(RELATION, type="LIKES")]),
+])
+def test_unknown_schema_enum_requires_a_retry_instead_of_fact_filtering(invalid):
+    llm = FakeLLM([invalid, response(relations=[RELATION])])
+    result = extract_chunk(CHUNK, llm)
+    assert len(llm.requests) == 2 and len(result.relations) == 1 and result.dropped == 0
