@@ -91,3 +91,37 @@ def test_two_invalid_answers_log_the_failed_chunk(caplog):
     result = extract_chunk(CHUNK, FakeLLM(["broken", "broken"]))
     assert result.entities == [] and CHUNK.chunk_id in caplog.text
     assert "extraction_failed" in caplog.text
+
+
+@pytest.mark.parametrize("script, attempts, status, errors", [
+    (["broken", response()], 2, "ok", 1),
+    (["broken", "broken"], 2, "invalid_response", 2),
+])
+def test_diagnostics_distinguish_recovery_from_failure(script, attempts, status, errors):
+    from assistant.graphrag.extraction import extract_with_diagnostics
+
+    result, diagnostics = extract_with_diagnostics(CHUNK, FakeLLM(script))
+    assert (diagnostics.attempts, diagnostics.status) == (attempts, status)
+    assert len(diagnostics.parse_errors) == errors
+    assert result.dropped == len(diagnostics.rejected_entities) + len(diagnostics.rejected_relations)
+
+
+def test_extraction_explicitly_increases_the_output_budget():
+    class RecordingLLM(FakeLLM):
+        def chat(self, *args, **kwargs):
+            self.output_budget = kwargs["max_tokens"]
+            return super().chat(*args, **kwargs)
+
+    llm = RecordingLLM([response()])
+    extract_chunk(CHUNK, llm)
+    assert llm.output_budget == 8192
+
+
+def test_a_part_cannot_replace_itself_even_if_both_spellings_are_grounded():
+    from assistant.graphrag.extraction import extract_with_diagnostics
+
+    result, diagnostics = extract_with_diagnostics(CHUNK, FakeLLM([
+        response(relations=[dict(RELATION, object="p 1042")])
+    ]))
+    assert result.relations == [] and result.dropped == 1
+    assert diagnostics.rejected_relations[0]["reason"] == "self_replacement"
