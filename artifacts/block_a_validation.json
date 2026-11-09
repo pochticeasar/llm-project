@@ -1,0 +1,13 @@
+{
+  "documents": 80,
+  "chunks": 92,
+  "gold_documents": 16,
+  "graph_nodes": 122,
+  "graph_edges": 279,
+  "key_chains_verified": true,
+  "schema_sources_and_weights_verified": true,
+  "repeat_graph_identical": true,
+  "repeat_metrics_identical": true,
+  "repeat_cached_calls": 92,
+  "graph_sha256": "a6f40fd8b64483ff7a886befef51bb0041fc1709cb3c325837e22e88bcb3844f"
+}
