@@ -9,5 +9,16 @@
   "repeat_graph_identical": true,
   "repeat_metrics_identical": true,
   "repeat_cached_calls": 92,
-  "graph_sha256": "a6f40fd8b64483ff7a886befef51bb0041fc1709cb3c325837e22e88bcb3844f"
+  "graph_sha256": "a6f40fd8b64483ff7a886befef51bb0041fc1709cb3c325837e22e88bcb3844f",
+  "clean_clone": {
+    "commit": "ecb7ce2d0554738be9ddb607d2f8907ce42921dc",
+    "python": "Python 3.11.17",
+    "uv_frozen_sync": true,
+    "passed_tests": 140,
+    "lint_passed": true,
+    "cached_calls": 92,
+    "graph_identical": true,
+    "metrics_identical": true,
+    "started_with_clean_worktree": true
+  }
 }
