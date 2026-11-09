@@ -1,0 +1,78 @@
+[
+  {
+    "version": 1,
+    "evaluation": {
+      "relations": {
+        "precision": 1.0,
+        "recall": 0.795,
+        "found": 31,
+        "gold": 39
+      },
+      "entities": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "found": 40,
+        "gold": 39
+      },
+      "dropped": 2,
+      "documents": 4
+    }
+  },
+  {
+    "version": 2,
+    "evaluation": {
+      "relations": {
+        "precision": 1.0,
+        "recall": 0.769,
+        "found": 31,
+        "gold": 39
+      },
+      "entities": {
+        "precision": 1.0,
+        "recall": 0.974,
+        "found": 39,
+        "gold": 39
+      },
+      "dropped": 6,
+      "documents": 4
+    }
+  },
+  {
+    "version": 3,
+    "evaluation": {
+      "relations": {
+        "precision": 0.955,
+        "recall": 0.513,
+        "found": 22,
+        "gold": 39
+      },
+      "entities": {
+        "precision": 1.0,
+        "recall": 0.744,
+        "found": 30,
+        "gold": 39
+      },
+      "dropped": 9,
+      "documents": 4
+    }
+  },
+  {
+    "version": 4,
+    "evaluation": {
+      "relations": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "found": 39,
+        "gold": 39
+      },
+      "entities": {
+        "precision": 0.976,
+        "recall": 1.0,
+        "found": 41,
+        "gold": 39
+      },
+      "dropped": 1,
+      "documents": 4
+    }
+  }
+]

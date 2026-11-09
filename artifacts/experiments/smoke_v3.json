@@ -1,0 +1,561 @@
+[
+  {
+    "result": {
+      "chunk_id": "bulletin_SB-2025-03.md#0",
+      "doc_id": "bulletin_SB-2025-03.md",
+      "entities": [
+        {
+          "type": "Component",
+          "name": "пусковое реле"
+        },
+        {
+          "type": "Part",
+          "name": "P-1042"
+        },
+        {
+          "type": "Part",
+          "name": "P-1042B"
+        },
+        {
+          "type": "Supplier",
+          "name": "ХолодКомплект"
+        }
+      ],
+      "relations": [
+        {
+          "subject": {
+            "type": "Part",
+            "name": "P-1042"
+          },
+          "type": "IS_A",
+          "object": {
+            "type": "Component",
+            "name": "пусковое реле"
+          }
+        },
+        {
+          "subject": {
+            "type": "Part",
+            "name": "P-1042"
+          },
+          "type": "REPLACED_BY",
+          "object": {
+            "type": "Part",
+            "name": "P-1042"
+          }
+        },
+        {
+          "subject": {
+            "type": "Part",
+            "name": "P-1042B"
+          },
+          "type": "SUPPLIED_BY",
+          "object": {
+            "type": "Supplier",
+            "name": "ХолодКомплект"
+          }
+        }
+      ],
+      "dropped": 0
+    },
+    "diagnostics": {
+      "attempts": 1,
+      "status": "ok",
+      "parse_errors": [],
+      "rejected_entities": [],
+      "rejected_relations": []
+    }
+  },
+  {
+    "result": {
+      "chunk_id": "manual_AR-210.md#0",
+      "doc_id": "manual_AR-210.md",
+      "entities": [
+        {
+          "type": "Component",
+          "name": "блок освещения"
+        },
+        {
+          "type": "Component",
+          "name": "вентилятор испарителя"
+        },
+        {
+          "type": "Component",
+          "name": "вентилятор конденсатора"
+        },
+        {
+          "type": "Component",
+          "name": "датчик температуры"
+        },
+        {
+          "type": "Component",
+          "name": "компрессор"
+        },
+        {
+          "type": "Component",
+          "name": "контроллер"
+        },
+        {
+          "type": "Component",
+          "name": "пусковое реле"
+        },
+        {
+          "type": "Component",
+          "name": "реле давления"
+        },
+        {
+          "type": "Model",
+          "name": "AR-210"
+        },
+        {
+          "type": "Part",
+          "name": "P-1010"
+        },
+        {
+          "type": "Part",
+          "name": "P-1014"
+        },
+        {
+          "type": "Part",
+          "name": "P-1018"
+        },
+        {
+          "type": "Part",
+          "name": "P-1022"
+        },
+        {
+          "type": "Part",
+          "name": "P-1026"
+        },
+        {
+          "type": "Part",
+          "name": "P-1042"
+        },
+        {
+          "type": "Part",
+          "name": "P-1046"
+        },
+        {
+          "type": "Part",
+          "name": "P-1050"
+        },
+        {
+          "type": "ProductLine",
+          "name": "Арктика"
+        },
+        {
+          "type": "Supplier",
+          "name": "АвтоматикаСевер"
+        },
+        {
+          "type": "Supplier",
+          "name": "ВентПром"
+        },
+        {
+          "type": "Supplier",
+          "name": "КомпрессорМаш"
+        },
+        {
+          "type": "Supplier",
+          "name": "ТермоПрибор"
+        },
+        {
+          "type": "Supplier",
+          "name": "ХолодКомплект"
+        }
+      ],
+      "relations": [
+        {
+          "subject": {
+            "type": "Model",
+            "name": "AR-210"
+          },
+          "type": "BELONGS_TO",
+          "object": {
+            "type": "ProductLine",
+            "name": "Арктика"
+          }
+        },
+        {
+          "subject": {
+            "type": "Part",
+            "name": "P-1010"
+          },
+          "type": "IS_A",
+          "object": {
+            "type": "Component",
+            "name": "компрессор"
+          }
+        },
+        {
+          "subject": {
+            "type": "Part",
+            "name": "P-1010"
+          },
+          "type": "SUPPLIED_BY",
+          "object": {
+            "type": "Supplier",
+            "name": "КомпрессорМаш"
+          }
+        },
+        {
+          "subject": {
+            "type": "Part",
+            "name": "P-1014"
+          },
+          "type": "IS_A",
+          "object": {
+            "type": "Component",
+            "name": "вентилятор конденсатора"
+          }
+        },
+        {
+          "subject": {
+            "type": "Part",
+            "name": "P-1014"
+          },
+          "type": "SUPPLIED_BY",
+          "object": {
+            "type": "Supplier",
+            "name": "ВентПром"
+          }
+        },
+        {
+          "subject": {
+            "type": "Part",
+            "name": "P-1018"
+          },
+          "type": "IS_A",
+          "object": {
+            "type": "Component",
+            "name": "датчик температуры"
+          }
+        },
+        {
+          "subject": {
+            "type": "Part",
+            "name": "P-1018"
+          },
+          "type": "SUPPLIED_BY",
+          "object": {
+            "type": "Supplier",
+            "name": "ТермоПрибор"
+          }
+        },
+        {
+          "subject": {
+            "type": "Part",
+            "name": "P-1022"
+          },
+          "type": "IS_A",
+          "object": {
+            "type": "Component",
+            "name": "контроллер"
+          }
+        },
+        {
+          "subject": {
+            "type": "Part",
+            "name": "P-1022"
+          },
+          "type": "SUPPLIED_BY",
+          "object": {
+            "type": "Supplier",
+            "name": "АвтоматикаСевер"
+          }
+        },
+        {
+          "subject": {
+            "type": "Part",
+            "name": "P-1026"
+          },
+          "type": "IS_A",
+          "object": {
+            "type": "Component",
+            "name": "реле давления"
+          }
+        },
+        {
+          "subject": {
+            "type": "Part",
+            "name": "P-1026"
+          },
+          "type": "SUPPLIED_BY",
+          "object": {
+            "type": "Supplier",
+            "name": "ХолодКомплект"
+          }
+        },
+        {
+          "subject": {
+            "type": "Part",
+            "name": "P-1042"
+          },
+          "type": "IS_A",
+          "object": {
+            "type": "Component",
+            "name": "пусковое реле"
+          }
+        },
+        {
+          "subject": {
+            "type": "Part",
+            "name": "P-1042"
+          },
+          "type": "SUPPLIED_BY",
+          "object": {
+            "type": "Supplier",
+            "name": "ХолодКомплект"
+          }
+        },
+        {
+          "subject": {
+            "type": "Part",
+            "name": "P-1046"
+          },
+          "type": "IS_A",
+          "object": {
+            "type": "Component",
+            "name": "вентилятор испарителя"
+          }
+        },
+        {
+          "subject": {
+            "type": "Part",
+            "name": "P-1046"
+          },
+          "type": "SUPPLIED_BY",
+          "object": {
+            "type": "Supplier",
+            "name": "ВентПром"
+          }
+        },
+        {
+          "subject": {
+            "type": "Part",
+            "name": "P-1050"
+          },
+          "type": "IS_A",
+          "object": {
+            "type": "Component",
+            "name": "блок освещения"
+          }
+        },
+        {
+          "subject": {
+            "type": "Part",
+            "name": "P-1050"
+          },
+          "type": "SUPPLIED_BY",
+          "object": {
+            "type": "Supplier",
+            "name": "АвтоматикаСевер"
+          }
+        }
+      ],
+      "dropped": 0
+    },
+    "diagnostics": {
+      "attempts": 1,
+      "status": "ok",
+      "parse_errors": [],
+      "rejected_entities": [],
+      "rejected_relations": []
+    }
+  },
+  {
+    "result": {
+      "chunk_id": "manual_AR-210.md#1",
+      "doc_id": "manual_AR-210.md",
+      "entities": [
+        {
+          "type": "Component",
+          "name": "блок освещения"
+        },
+        {
+          "type": "Component",
+          "name": "вентилятор испарителя"
+        },
+        {
+          "type": "Component",
+          "name": "вентилятор конденсатора"
+        },
+        {
+          "type": "Component",
+          "name": "датчик температуры"
+        },
+        {
+          "type": "Component",
+          "name": "компрессор"
+        },
+        {
+          "type": "Component",
+          "name": "контроллер"
+        },
+        {
+          "type": "Component",
+          "name": "пусковое реле"
+        },
+        {
+          "type": "Component",
+          "name": "реле давления"
+        },
+        {
+          "type": "Model",
+          "name": "AR-210"
+        }
+      ],
+      "relations": [],
+      "dropped": 8
+    },
+    "diagnostics": {
+      "attempts": 1,
+      "status": "ok",
+      "parse_errors": [],
+      "rejected_entities": [],
+      "rejected_relations": [
+        {
+          "subject_type": "Model",
+          "subject": "AR-210",
+          "type": "HAS_PART",
+          "object_type": "Component",
+          "object": "компрессор",
+          "reason": "schema_mismatch"
+        },
+        {
+          "subject_type": "Model",
+          "subject": "AR-210",
+          "type": "HAS_PART",
+          "object_type": "Component",
+          "object": "вентилятор конденсатора",
+          "reason": "schema_mismatch"
+        },
+        {
+          "subject_type": "Model",
+          "subject": "AR-210",
+          "type": "HAS_PART",
+          "object_type": "Component",
+          "object": "датчик температуры",
+          "reason": "schema_mismatch"
+        },
+        {
+          "subject_type": "Model",
+          "subject": "AR-210",
+          "type": "HAS_PART",
+          "object_type": "Component",
+          "object": "контроллер",
+          "reason": "schema_mismatch"
+        },
+        {
+          "subject_type": "Model",
+          "subject": "AR-210",
+          "type": "HAS_PART",
+          "object_type": "Component",
+          "object": "реле давления",
+          "reason": "schema_mismatch"
+        },
+        {
+          "subject_type": "Model",
+          "subject": "AR-210",
+          "type": "HAS_PART",
+          "object_type": "Component",
+          "object": "пусковое реле",
+          "reason": "schema_mismatch"
+        },
+        {
+          "subject_type": "Model",
+          "subject": "AR-210",
+          "type": "HAS_PART",
+          "object_type": "Component",
+          "object": "вентилятор испарителя",
+          "reason": "schema_mismatch"
+        },
+        {
+          "subject_type": "Model",
+          "subject": "AR-210",
+          "type": "HAS_PART",
+          "object_type": "Component",
+          "object": "блок освещения",
+          "reason": "schema_mismatch"
+        }
+      ]
+    }
+  },
+  {
+    "result": {
+      "chunk_id": "procedure_SP-115.md#0",
+      "doc_id": "procedure_SP-115.md",
+      "entities": [],
+      "relations": [],
+      "dropped": 0
+    },
+    "diagnostics": {
+      "attempts": 1,
+      "status": "ok",
+      "parse_errors": [],
+      "rejected_entities": [],
+      "rejected_relations": []
+    }
+  },
+  {
+    "result": {
+      "chunk_id": "report_R-2025-003.md#0",
+      "doc_id": "report_R-2025-003.md",
+      "entities": [
+        {
+          "type": "Component",
+          "name": "пусковое реле"
+        },
+        {
+          "type": "ErrorCode",
+          "name": "E-17"
+        },
+        {
+          "type": "Model",
+          "name": "AR-320"
+        }
+      ],
+      "relations": [
+        {
+          "subject": {
+            "type": "ErrorCode",
+            "name": "E-17"
+          },
+          "type": "INDICATES",
+          "object": {
+            "type": "Component",
+            "name": "пусковое реле"
+          }
+        },
+        {
+          "subject": {
+            "type": "Model",
+            "name": "AR-320"
+          },
+          "type": "FAILED",
+          "object": {
+            "type": "Component",
+            "name": "пусковое реле"
+          }
+        }
+      ],
+      "dropped": 1
+    },
+    "diagnostics": {
+      "attempts": 1,
+      "status": "ok",
+      "parse_errors": [],
+      "rejected_entities": [],
+      "rejected_relations": [
+        {
+          "subject_type": "Model",
+          "subject": "AR-320",
+          "type": "HAS_PART",
+          "object_type": "Component",
+          "object": "пусковое реле",
+          "reason": "schema_mismatch"
+        }
+      ]
+    }
+  }
+]
