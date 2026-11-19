@@ -5,3 +5,8 @@ __pycache__/
 .venv/
 .env
 .DS_Store
+.idea/
+
+# Local experimental index
+/artifacts/block_b_local/
+/src/assistant/graphrag/WORK_LOG_B.md
