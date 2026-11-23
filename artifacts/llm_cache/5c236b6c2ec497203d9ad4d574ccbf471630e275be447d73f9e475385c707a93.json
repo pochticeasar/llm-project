@@ -1,0 +1,1 @@
+{"id": "chatcmpl-702", "object": "chat.completion", "created": 1794590693, "model": "qwen3:4b-instruct-2507-q4_K_M", "system_fingerprint": "fp_ollama", "choices": [{"index": 0, "message": {"role": "assistant", "content": "Поставщик детали P-3062C — ГидроТех."}, "finish_reason": "stop"}], "usage": {"prompt_tokens": 629, "completion_tokens": 22, "total_tokens": 651}}

@@ -1,0 +1,196 @@
+[
+  {
+    "community_id": 0,
+    "nodes": [
+      "Component:блок освещения",
+      "Component:пусковое реле",
+      "ErrorCode:E-17",
+      "ErrorCode:E-19",
+      "Model:AR-210",
+      "Model:AR-220",
+      "Model:AR-310",
+      "Model:AR-320",
+      "Part:P-1042",
+      "Part:P-1050",
+      "Part:P-1142",
+      "Part:P-1150",
+      "Procedure:SP-104",
+      "Procedure:SP-109",
+      "ProductLine:Арктика"
+    ],
+    "summary": "Сумма весов FAILED для пусковое реле в линейке Арктика: 9\nСумма весов FAILED для пусковое реле: 9\nСумма весов FAILED для модели AR-210: 3\nСумма весов FAILED для модели AR-220: 3\nСумма весов FAILED для модели AR-310: 5\nСумма весов FAILED для модели AR-320: 3\nModel:AR-210 -HAS_PART-> Part:P-1042 (вес 1)\nModel:AR-210 -BELONGS_TO-> ProductLine:Арктика (вес 1)\nModel:AR-220 -HAS_PART-> Part:P-1042 (вес 1)\nModel:AR-220 -BELONGS_TO-> ProductLine:Арктика (вес 1)\nPart:P-1042 -REPLACED_BY-> Part:P-1042B (вес 1)\nModel:AR-210 -FAILED-> Component:пусковое реле (вес 2)\nModel:AR-220 -FAILED-> Component:пусковое реле (вес 2)\nModel:AR-310 -FAILED-> Component:пусковое реле (вес 3)\nModel:AR-310 -BELONGS_TO-> ProductLine:Арктика (вес 1)\nModel:AR-320 -FAILED-> Component:пусковое реле (вес 2)\nModel:AR-320 -BELONGS_TO-> ProductLine:Арктика (вес 1)\nErrorCode:E-17 -INDICATES-> Component:пусковое реле (вес 6)\nPart:P-1042 -IS_A-> Component:пусковое реле (вес 3)\nPart:P-1142 -IS_A-> Component:пусковое реле (вес 2)"
+  },
+  {
+    "community_id": 1,
+    "nodes": [
+      "Component:вентилятор испарителя",
+      "Component:нагреватель оттайки",
+      "ErrorCode:E-18",
+      "ErrorCode:E-20",
+      "Model:BZ-110",
+      "Model:BZ-120",
+      "Model:BZ-210",
+      "Model:BZ-220",
+      "Part:P-1046",
+      "Part:P-2046",
+      "Part:P-2054",
+      "Part:P-2154",
+      "Procedure:SP-108",
+      "Procedure:SP-110",
+      "ProductLine:Бриз"
+    ],
+    "summary": "Сумма весов FAILED для вентилятор испарителя в линейке Бриз: 7\nСумма весов FAILED для нагреватель оттайки в линейке Бриз: 4\nСумма весов FAILED для вентилятор испарителя: 7\nСумма весов FAILED для нагреватель оттайки: 4\nСумма весов FAILED для модели BZ-110: 2\nСумма весов FAILED для модели BZ-120: 4\nСумма весов FAILED для модели BZ-210: 3\nСумма весов FAILED для модели BZ-220: 3\nModel:AR-210 -HAS_PART-> Part:P-1046 (вес 1)\nModel:AR-210 -BELONGS_TO-> ProductLine:Арктика (вес 1)\nModel:AR-220 -HAS_PART-> Part:P-1046 (вес 1)\nModel:AR-220 -BELONGS_TO-> ProductLine:Арктика (вес 1)\nModel:BZ-110 -HAS_PART-> Part:P-2054 (вес 1)\nModel:BZ-110 -BELONGS_TO-> ProductLine:Бриз (вес 1)\nModel:BZ-120 -HAS_PART-> Part:P-2054 (вес 1)\nModel:BZ-120 -BELONGS_TO-> ProductLine:Бриз (вес 1)\nPart:P-1046 -REPLACED_BY-> Part:P-1046B (вес 1)\nPart:P-2054 -REPLACED_BY-> Part:P-2054B (вес 1)\nModel:BZ-110 -FAILED-> Component:вентилятор испарителя (вес 1)\nModel:BZ-110 -FAILED-> Component:нагреватель оттайки (вес 1)\nModel:BZ-120 -FAILED-> Component:вентилятор испарителя (вес 2)\nModel:BZ-120 -FAILED-> Component:нагреватель оттайки (вес 1)\nModel:BZ-210 -FAILED-> Component:вентилятор испарителя (вес 2)\nModel:BZ-210 -FAILED-> Component:нагреватель оттайки (вес 1)"
+  },
+  {
+    "community_id": 2,
+    "nodes": [
+      "Component:вентилятор конденсатора",
+      "ErrorCode:E-13",
+      "Part:P-1014",
+      "Part:P-1046B",
+      "Part:P-1114",
+      "Part:P-1146",
+      "Part:P-2014",
+      "Part:P-2114",
+      "Part:P-2146",
+      "Part:P-3014",
+      "Part:P-3114",
+      "Procedure:SP-103",
+      "Supplier:ВентПром"
+    ],
+    "summary": "Model:AR-210 -HAS_PART-> Part:P-1046 (вес 1)\nModel:AR-210 -BELONGS_TO-> ProductLine:Арктика (вес 1)\nModel:AR-220 -HAS_PART-> Part:P-1046 (вес 1)\nModel:AR-220 -BELONGS_TO-> ProductLine:Арктика (вес 1)\nPart:P-1046 -REPLACED_BY-> Part:P-1046B (вес 1)\nErrorCode:E-13 -INDICATES-> Component:вентилятор конденсатора (вес 13)\nPart:P-1014 -IS_A-> Component:вентилятор конденсатора (вес 3)\nPart:P-1114 -IS_A-> Component:вентилятор конденсатора (вес 2)\nPart:P-2014 -IS_A-> Component:вентилятор конденсатора (вес 2)\nPart:P-2114 -IS_A-> Component:вентилятор конденсатора (вес 2)"
+  },
+  {
+    "community_id": 3,
+    "nodes": [
+      "Component:датчик температуры",
+      "Component:терморегулирующий вентиль",
+      "ErrorCode:E-14",
+      "ErrorCode:E-21",
+      "Part:P-1018",
+      "Part:P-1118",
+      "Part:P-1118B",
+      "Part:P-2018",
+      "Part:P-2054B",
+      "Part:P-2054C",
+      "Part:P-2058",
+      "Part:P-2118",
+      "Part:P-2158",
+      "Part:P-3018",
+      "Part:P-3058",
+      "Part:P-3118",
+      "Part:P-3158",
+      "Procedure:SP-105",
+      "Procedure:SP-111",
+      "Supplier:ТермоПрибор"
+    ],
+    "summary": "Сумма весов FAILED для датчик температуры в линейке Арктика: 4\nСумма весов FAILED для датчик температуры в линейке Гольфстрим: 1\nСумма весов FAILED для датчик температуры: 5\nСумма весов FAILED для модели AR-210: 3\nСумма весов FAILED для модели AR-220: 3\nСумма весов FAILED для модели AR-310: 5\nСумма весов FAILED для модели AR-320: 3\nСумма весов FAILED для модели GS-510: 4\nModel:AR-310 -HAS_PART-> Part:P-1118 (вес 1)\nModel:AR-310 -BELONGS_TO-> ProductLine:Арктика (вес 1)\nModel:AR-320 -HAS_PART-> Part:P-1118 (вес 1)\nModel:AR-320 -BELONGS_TO-> ProductLine:Арктика (вес 1)\nModel:BZ-110 -HAS_PART-> Part:P-2054 (вес 1)\nModel:BZ-110 -BELONGS_TO-> ProductLine:Бриз (вес 1)\nModel:BZ-120 -HAS_PART-> Part:P-2054 (вес 1)\nModel:BZ-120 -BELONGS_TO-> ProductLine:Бриз (вес 1)\nPart:P-1118 -REPLACED_BY-> Part:P-1118B (вес 1)\nPart:P-2054 -REPLACED_BY-> Part:P-2054B (вес 1)\nPart:P-2054B -REPLACED_BY-> Part:P-2054C (вес 1)\nModel:AR-210 -FAILED-> Component:датчик температуры (вес 1)\nModel:AR-220 -FAILED-> Component:датчик температуры (вес 1)\nModel:AR-310 -FAILED-> Component:датчик температуры (вес 1)\nModel:AR-320 -FAILED-> Component:датчик температуры (вес 1)\nModel:GS-510 -FAILED-> Component:датчик температуры (вес 1)"
+  },
+  {
+    "community_id": 4,
+    "nodes": [
+      "Component:компрессор",
+      "ErrorCode:E-11",
+      "ErrorCode:E-12",
+      "Part:P-1010",
+      "Part:P-1110",
+      "Part:P-2010",
+      "Part:P-2110",
+      "Part:P-2110B",
+      "Part:P-3010",
+      "Part:P-3110",
+      "Procedure:SP-101",
+      "Procedure:SP-102",
+      "Supplier:КомпрессорМаш"
+    ],
+    "summary": "Сумма весов FAILED для компрессор в линейке Бриз: 1\nСумма весов FAILED для компрессор: 1\nСумма весов FAILED для модели BZ-120: 4\nModel:BZ-210 -HAS_PART-> Part:P-2110 (вес 1)\nModel:BZ-210 -BELONGS_TO-> ProductLine:Бриз (вес 1)\nModel:BZ-220 -HAS_PART-> Part:P-2110 (вес 1)\nModel:BZ-220 -BELONGS_TO-> ProductLine:Бриз (вес 1)\nPart:P-2110 -REPLACED_BY-> Part:P-2110B (вес 1)\nModel:BZ-120 -FAILED-> Component:компрессор (вес 1)\nModel:BZ-120 -BELONGS_TO-> ProductLine:Бриз (вес 1)\nErrorCode:E-11 -INDICATES-> Component:компрессор (вес 13)\nErrorCode:E-12 -INDICATES-> Component:компрессор (вес 13)\nPart:P-2110 -IS_A-> Component:компрессор (вес 3)\nPart:P-1010 -IS_A-> Component:компрессор (вес 2)\nPart:P-1110 -IS_A-> Component:компрессор (вес 2)"
+  },
+  {
+    "community_id": 5,
+    "nodes": [
+      "Component:контроллер",
+      "ErrorCode:E-15",
+      "ErrorCode:E-24",
+      "Part:P-1022",
+      "Part:P-1122",
+      "Part:P-2022",
+      "Part:P-2122",
+      "Part:P-3022",
+      "Part:P-3122",
+      "Part:P-3126B",
+      "Procedure:SP-106",
+      "Procedure:SP-114",
+      "Supplier:АвтоматикаСевер"
+    ],
+    "summary": "Сумма весов FAILED для контроллер в линейке Арктика: 1\nСумма весов FAILED для контроллер: 1\nСумма весов FAILED для модели AR-310: 5\nModel:GS-510 -HAS_PART-> Part:P-3126 (вес 1)\nModel:GS-510 -BELONGS_TO-> ProductLine:Гольфстрим (вес 1)\nModel:GS-520 -HAS_PART-> Part:P-3126 (вес 1)\nModel:GS-520 -BELONGS_TO-> ProductLine:Гольфстрим (вес 1)\nPart:P-3126 -REPLACED_BY-> Part:P-3126B (вес 1)\nModel:AR-310 -FAILED-> Component:контроллер (вес 1)\nModel:AR-310 -BELONGS_TO-> ProductLine:Арктика (вес 1)\nErrorCode:E-15 -INDICATES-> Component:контроллер (вес 13)\nErrorCode:E-24 -INDICATES-> Component:контроллер (вес 13)\nPart:P-1022 -IS_A-> Component:контроллер (вес 2)"
+  },
+  {
+    "community_id": 6,
+    "nodes": [
+      "Component:реле давления",
+      "ErrorCode:E-16",
+      "Part:P-1026",
+      "Part:P-1042B",
+      "Part:P-1126",
+      "Part:P-2026",
+      "Part:P-2126",
+      "Part:P-3026",
+      "Part:P-3126",
+      "Procedure:SP-107",
+      "Supplier:ХолодКомплект"
+    ],
+    "summary": "Сумма весов FAILED для реле давления в линейке Гольфстрим: 4\nСумма весов FAILED для реле давления: 4\nСумма весов FAILED для модели GS-410: 3\nСумма весов FAILED для модели GS-420: 3\nСумма весов FAILED для модели GS-510: 4\nСумма весов FAILED для модели GS-520: 3\nModel:AR-210 -HAS_PART-> Part:P-1042 (вес 1)\nModel:AR-210 -BELONGS_TO-> ProductLine:Арктика (вес 1)\nModel:AR-220 -HAS_PART-> Part:P-1042 (вес 1)\nModel:AR-220 -BELONGS_TO-> ProductLine:Арктика (вес 1)\nModel:GS-510 -HAS_PART-> Part:P-3126 (вес 1)\nModel:GS-510 -BELONGS_TO-> ProductLine:Гольфстрим (вес 1)\nModel:GS-520 -HAS_PART-> Part:P-3126 (вес 1)\nModel:GS-520 -BELONGS_TO-> ProductLine:Гольфстрим (вес 1)\nPart:P-1042 -REPLACED_BY-> Part:P-1042B (вес 1)\nPart:P-3126 -REPLACED_BY-> Part:P-3126B (вес 1)\nModel:GS-410 -FAILED-> Component:реле давления (вес 1)\nModel:GS-420 -FAILED-> Component:реле давления (вес 1)\nModel:GS-510 -FAILED-> Component:реле давления (вес 1)\nModel:GS-520 -FAILED-> Component:реле давления (вес 1)\nModel:GS-410 -BELONGS_TO-> ProductLine:Гольфстрим (вес 1)\nModel:GS-420 -BELONGS_TO-> ProductLine:Гольфстрим (вес 1)\nErrorCode:E-16 -INDICATES-> Component:реле давления (вес 17)\nPart:P-1026 -IS_A-> Component:реле давления (вес 2)\nPart:P-1126 -IS_A-> Component:реле давления (вес 2)"
+  },
+  {
+    "community_id": 7,
+    "nodes": [
+      "Component:реле протока",
+      "Component:циркуляционный насос",
+      "ErrorCode:E-22",
+      "ErrorCode:E-23",
+      "Model:GS-410",
+      "Model:GS-420",
+      "Model:GS-510",
+      "Model:GS-520",
+      "Part:P-3062",
+      "Part:P-3062B",
+      "Part:P-3062C",
+      "Part:P-3066",
+      "Part:P-3162",
+      "Part:P-3166",
+      "Procedure:SP-112",
+      "Procedure:SP-113",
+      "ProductLine:Гольфстрим",
+      "Supplier:ГидроТех"
+    ],
+    "summary": "Сумма весов FAILED для циркуляционный насос в линейке Гольфстрим: 8\nСумма весов FAILED для циркуляционный насос: 8\nСумма весов FAILED для модели GS-410: 3\nСумма весов FAILED для модели GS-420: 3\nСумма весов FAILED для модели GS-510: 4\nСумма весов FAILED для модели GS-520: 3\nModel:GS-410 -HAS_PART-> Part:P-3062 (вес 1)\nModel:GS-410 -BELONGS_TO-> ProductLine:Гольфстрим (вес 1)\nModel:GS-420 -HAS_PART-> Part:P-3062 (вес 1)\nModel:GS-420 -BELONGS_TO-> ProductLine:Гольфстрим (вес 1)\nPart:P-3062 -REPLACED_BY-> Part:P-3062B (вес 1)\nPart:P-3062B -REPLACED_BY-> Part:P-3062C (вес 1)\nModel:GS-410 -FAILED-> Component:циркуляционный насос (вес 2)\nModel:GS-420 -FAILED-> Component:циркуляционный насос (вес 2)\nModel:GS-510 -FAILED-> Component:циркуляционный насос (вес 2)\nModel:GS-510 -BELONGS_TO-> ProductLine:Гольфстрим (вес 1)\nModel:GS-520 -FAILED-> Component:циркуляционный насос (вес 2)\nModel:GS-520 -BELONGS_TO-> ProductLine:Гольфстрим (вес 1)\nErrorCode:E-22 -INDICATES-> Component:циркуляционный насос (вес 5)\nErrorCode:E-23 -INDICATES-> Component:реле протока (вес 5)"
+  },
+  {
+    "community_id": 8,
+    "nodes": [
+      "Procedure:SP-115"
+    ],
+    "summary": "В сообществе 8 нет связей между сущностями."
+  },
+  {
+    "community_id": 9,
+    "nodes": [
+      "Procedure:SP-116"
+    ],
+    "summary": "В сообществе 9 нет связей между сущностями."
+  },
+  {
+    "community_id": 10,
+    "nodes": [
+      "Procedure:SP-117"
+    ],
+    "summary": "В сообществе 10 нет связей между сущностями."
+  },
+  {
+    "community_id": 11,
+    "nodes": [
+      "Procedure:SP-118"
+    ],
+    "summary": "В сообществе 11 нет связей между сущностями."
+  }
+]

@@ -132,12 +132,14 @@ make eval-extraction       # Precision и Recall извлечения на 16 д
 **3. Сообщества и поиск.** Файлы `communities.py` и `search.py`.
 
 ```bash
-make test ARGS=tests/contract/test_communities_and_search.py
+make test ARGS="tests/contract/test_communities_and_search.py tests/block_b"
 make index                 # граф, сообщества и сводки по всему корпусу
 make ask MODE=local Q="Какую деталь заказать при ошибке E-17 на AR-210?"
 make eval MODE=local
 make eval MODE=global
 ```
+
+Входы, выходы и ограничения блока описаны в [communities_and_search.md](src/assistant/graphrag/communities_and_search.md).
 
 **4. Агент.** Файлы `tools.py` и `agent.py`.
 
