@@ -4,6 +4,7 @@ import json
 import re
 from collections.abc import Callable
 
+from assistant.agent.erp_answers import normalize_number_words, verified_erp_answer
 from assistant.agent.tools import TOOL_SCHEMAS, WAREHOUSES, canonical_code, validate_arguments
 from assistant.infra.erp_client import ErpUnavailable
 from assistant.infra.grounding import find_codes
@@ -34,11 +35,6 @@ SYSTEM_PROMPT = """Ты ассистент сервисной службы «П�
 REFUSAL = "В базе знаний не найдено."
 ERP_ATTEMPTS = 3
 ERP_DOWN = "ERP не ответила"
-NUMBER_WORDS = {
-    "один": 1, "одну": 1, "одна": 1, "два": 2, "две": 2, "три": 3, "четыре": 4, "пять": 5,
-    "шесть": 6, "семь": 7, "восемь": 8, "девять": 9, "десять": 10,
-}
-
 # Число, стоящее отдельно от кодов и слов. Разряды могут быть разделены пробелом: «2 630».
 _NUMBER = r"(?<![\w-])(?:\d{1,3}(?:[ \u00a0\u202f]\d{3})+|\d+)(?![\w-])"
 _PRICE_OR_QTY = re.compile(rf"({_NUMBER})\s*(?:руб|₽|шт)")
@@ -71,9 +67,25 @@ def run_agent(
         messages.append(response.as_message())
 
         if not response.tool_calls:
-            problem = _answer_problem(response.content, question, steps)
+            if _unfinished_order(question, response.content, steps):
+                if corrections_left == 0:
+                    return AgentResult(
+                        "Заказ не создан: модель не вызвала инструмент оформления заказа.",
+                        steps, _sources(steps), refused=True,
+                    )
+                corrections_left -= 1
+                messages.append({"role": "user", "content": (
+                    "Пользователь просит оформить заказ, но create_service_order ещё не вызван. "
+                    "Вызови create_service_order с подтверждённой деталью, моделью, складом и количеством "
+                    "из запроса. Приложение само запросит подтверждение перед созданием заказа. "
+                    "Если обязательных данных нет, задай уточняющий вопрос. "
+                    "Не сообщай, что заказываешь или оформил заказ, без вызова инструмента."
+                )})
+                continue
+            text = verified_erp_answer(question, steps) or response.content
+            problem = _answer_problem(text, question, steps)
             if problem is None:
-                return _final(response.content, steps)
+                return _final(text, steps)
             if corrections_left == 0:
                 text = f"{REFUSAL} Ответ модели не подтверждён результатами инструментов."
                 return AgentResult(text, steps, _sources(steps), refused=True)
@@ -100,6 +112,21 @@ def run_agent(
             else:
                 steps.append(ToolStep(call.name, args, result=result))
             messages.append(tool_message(call, result))
+
+
+def _unfinished_order(question: str, answer: str, steps: list[ToolStep]) -> bool:
+    """Не позволяет закончить просьбу о заказе одними словами вместо вызова инструмента."""
+    request = re.search(
+        r"(?<!не )\b(?:закажи(?:те)?\b|(?:оформи(?:те)?|создай(?:те)?|размести(?:те)?)\s+заказ\b)",
+        question.lower(),
+    )
+    if not request or any(step.tool == "create_service_order" for step in steps):
+        return False
+    text = answer.lower()
+    clarification = re.search(r"\b(?:уточни\w*|укажи\w*|назови\w*|сколько|како\w*|каки\w*)\b", text)
+    if "не найден" in text or (clarification and "?" in text):
+        return False
+    return not steps or any(step.result is not None and not step.result.get("refused") for step in steps)
 
 
 def _clean_arguments(arguments: dict) -> dict:
@@ -163,8 +190,7 @@ def _order_stop(args: dict, question: str, steps: list[ToolStep], confirm: bool)
 
 def _quantity_named(qty: int, question: str) -> bool:
     """Количество считается названным, если оно стоит в вопросе числом или словом, отдельно от кодов."""
-    named = {int(_digits(number)) for number in re.findall(_NUMBER, question)}
-    named |= {NUMBER_WORDS[word] for word in re.findall(r"[а-яё]+", question.lower()) if word in NUMBER_WORDS}
+    named = {int(_digits(number)) for number in re.findall(_NUMBER, normalize_number_words(question))}
     return qty in named
 
 
@@ -205,7 +231,8 @@ def _answer_problem(answer: str, question: str, steps: list[ToolStep]) -> str | 
     if not answer.strip():
         return "он пустой"
     known_codes = _known_codes(question, steps)
-    known_numbers = {_digits(number) for number in re.findall(_NUMBER, question + " " + _results_text(steps))}
+    evidence = normalize_number_words(question + " " + _results_text(steps))
+    known_numbers = {_digits(number) for number in re.findall(_NUMBER, evidence)}
     invented = [code for code in find_codes(answer) if code not in known_codes]
     invented += [number for number in _PRICE_OR_QTY.findall(answer) if _digits(number) not in known_numbers]
     if invented:
