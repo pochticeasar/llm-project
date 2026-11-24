@@ -1,10 +1,38 @@
 """Граничные случаи локального поиска."""
 
 import networkx as nx
+import pytest
 
 from assistant.graphrag.search import local_search
 from assistant.infra.schemas import KnowledgeBase
 from assistant.infra.testing import FakeLLM
+
+
+@pytest.mark.parametrize("replacement_count", [0, 1, 2])
+def test_supplier_of_selected_part_and_its_last_replacement_is_given_to_model(replacement_count) -> None:
+    graph = nx.DiGraph()
+    parts = [f"Part:P-{number:04d}" for number in range(7000, 7001 + replacement_count)]
+    edges = [
+        ("Model:AR-210", parts[0], "HAS_PART", "manual.md#0"),
+        (parts[0], "Component:контроллер", "IS_A", "manual.md#0"),
+        (parts[-1], "Supplier:Поставщик", "SUPPLIED_BY", "supplier.md#0"),
+        ("Model:BZ-110", "Part:P-9000", "HAS_PART", "other.md#0"),
+        ("Part:P-9000", "Supplier:Другой", "SUPPLIED_BY", "other.md#0"),
+    ]
+    edges += [(old, new, "REPLACED_BY", "replacement.md#0") for old, new in zip(parts[:-1], parts[1:], strict=True)]
+    for source, target, kind, chunk in edges:
+        for node in (source, target):
+            node_type, name = node.split(":", 1)
+            graph.add_node(node, type=node_type, name=name)
+        graph.add_edge(source, target, type=kind, sources=[chunk])
+    llm = FakeLLM(["Поставщик — Поставщик."])
+    answer = local_search(
+        "Кто поставляет контроллер для AR-210?",
+        KnowledgeBase(graph, [], {"Component": ["контроллер"]}), llm,
+    )
+    assert f"{parts[-1].split(':')[1]} -SUPPLIED_BY-> Поставщик" in answer.facts
+    assert "supplier.md" in answer.sources and "other.md" not in answer.sources
+    assert "Другой" not in str(llm.requests[0]["messages"])
 
 
 def test_mixed_question_can_return_graph_answer_without_erp_data() -> None:
