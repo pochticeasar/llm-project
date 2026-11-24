@@ -153,3 +153,78 @@ def test_price_with_thousands_separator_matches_the_tool_result():
     llm = FakeLLM([call("get_price", part_id="P-1042B"), "Цена 2 630 руб."])
     result = run_agent("Сколько стоит P-1042B?", llm, tools.as_dict())
     assert len(llm.requests) == 2 and result.answer == "Цена 2 630 руб."
+
+
+def test_premature_order_answer_is_retried_until_confirmation_is_prepared():
+    tools = Tools()
+    llm = FakeLLM([
+        call("search_knowledge", question="Какая деталь для AR-210?"),
+        "Заказываю 2 штуки P-1042B.",
+        call("create_service_order", **ORDER),
+    ])
+    result = run_agent("Оформи заказ: 2 штуки для AR-210, склад Казань.", llm, tools.as_dict())
+    assert result.needs_confirmation and result.pending_action == {"tool": "create_service_order", "args": ORDER}
+    assert [name for name, _ in tools.calls] == ["search_knowledge"]
+    assert result.sources == SEARCH["sources"]
+
+
+def test_repeated_premature_order_answer_does_not_claim_a_created_order():
+    tools = Tools()
+    llm = FakeLLM([
+        call("get_price", part_id="P-1042B"),
+        "Заказываю 2 штуки P-1042B.",
+        "Заказ оформлен.",
+    ])
+    result = run_agent("Закажи 2 штуки P-1042B для AR-210, склад Казань.", llm, tools.as_dict())
+    assert result.refused and "Заказ не создан" in result.answer
+    assert not result.needs_confirmation and result.pending_action is None
+    assert [name for name, _ in tools.calls] == ["get_price"]
+    assert len(llm.requests) == 3
+
+
+def test_order_clarification_can_finish_without_an_order_call():
+    tools = Tools()
+    llm = FakeLLM([call("get_price", part_id="P-1042B"), "Сколько штук нужно заказать?"])
+    result = run_agent("Закажи P-1042B для AR-210, склад Казань.", llm, tools.as_dict())
+    assert result.answer == "Сколько штук нужно заказать?" and not result.needs_confirmation
+    assert len(llm.requests) == 2
+
+
+def test_order_request_with_refused_search_does_not_force_an_order():
+    tools = Tools(search_knowledge={"answer": "В базе знаний не найдено.", "refused": True})
+    llm = FakeLLM([
+        call("search_knowledge", question="Какая деталь для AR-999?"),
+        "В базе знаний не найдено.",
+    ])
+    result = run_agent("Оформи заказ: 2 штуки для AR-999, склад Казань.", llm, tools.as_dict())
+    assert result.refused and not result.needs_confirmation
+    assert [name for name, _ in tools.calls] == ["search_knowledge"]
+
+
+def test_confirmed_order_still_requires_and_executes_the_order_tool():
+    tools = Tools()
+    llm = FakeLLM([
+        call("get_price", part_id="P-1042B"),
+        "Заказ создан. Что ещё?",
+        call("create_service_order", **ORDER),
+        "Заказ создан.",
+    ])
+    result = run_agent("Оформи заказ: 2 штуки P-1042B для AR-210, склад Казань.", llm, tools.as_dict(), confirm=True)
+    assert [name for name, _ in tools.calls] == ["get_price", "create_service_order"]
+    assert "SO-000001" in result.answer and not result.needs_confirmation
+
+
+def test_negative_order_request_does_not_force_an_order_call():
+    tools = Tools()
+    llm = FakeLLM([call("get_price", part_id="P-1042B"), "Цена P-1042B — 2630 руб."])
+    result = run_agent("Не закажи P-1042B по ошибке, только проверь цену.", llm, tools.as_dict())
+    assert result.answer == "Цена P-1042B — 2630 руб." and not result.needs_confirmation
+    assert [name for name, _ in tools.calls] == ["get_price"]
+
+
+def test_immediate_order_claim_without_tool_calls_is_not_accepted():
+    tools = Tools()
+    llm = FakeLLM(["Заказ оформлен.", call("create_service_order", **ORDER)])
+    result = run_agent("Закажи 2 штуки P-1042B для AR-210, склад Казань.", llm, tools.as_dict())
+    assert result.needs_confirmation and result.pending_action == {"tool": "create_service_order", "args": ORDER}
+    assert tools.calls == []
