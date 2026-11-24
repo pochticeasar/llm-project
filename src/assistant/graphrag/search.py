@@ -39,6 +39,7 @@ def _community_sources(community: Community, graph: nx.DiGraph) -> list[str]:
 def local_search(question: str, kb: KnowledgeBase, llm: LLMClient) -> Answer:
     """Отбирает факты на путях или в окружении опорных сущностей."""
     graph = kb.graph
+    supplier_question = bool(re.search(r"\b(?:поставщик\w*|поставля\w*)\b", question.lower()))
     codes = find_codes(question)
     code_nodes = [f"{code_type(code)}:{code}" for code in codes]
     if any(node not in graph for node in code_nodes):
@@ -75,6 +76,11 @@ def local_search(question: str, kb: KnowledgeBase, llm: LLMClient) -> Answer:
                 if data.get("type") == "REPLACED_BY":
                     pairs.add((node, target))
                     pending.append(target)
+        # A supplier is one edge beyond the replacement chain, not between the anchors.
+        if supplier_question:
+            for part in visited:
+                pairs.update((part, target) for target, data in graph[part].items()
+                             if data.get("type") == "SUPPLIED_BY")
 
     facts: list[str] = []
     chunks: set[str] = set()
@@ -91,6 +97,12 @@ def local_search(question: str, kb: KnowledgeBase, llm: LLMClient) -> Answer:
     if not facts:
         return Answer(REFUSAL, refused=True)
     numbered = "\n".join(f"{number}. {fact}" for number, fact in enumerate(facts, 1))
+    supplier_instruction = ""
+    if supplier_question:
+        supplier_instruction = (
+            " На вопрос о поставщике ответь одним предложением: назови поставщика последней детали "
+            "цепочки замен по SUPPLIED_BY. Не пересказывай цепочку и не переписывай коды оборудования."
+        )
     messages = [
         {"role": "system", "content": (
             "Ты отвечаешь только за сведения из графа: модель, ошибка, деталь, замена, узел, "
@@ -107,6 +119,7 @@ def local_search(question: str, kb: KnowledgeBase, llm: LLMClient) -> Answer:
             "что заказ создан. Если часть ответа найдена, не используй фразу 'не найдено'. "
             "Если в фактах нет ответа ни на одну часть вопроса, "
             "напиши: в базе знаний не найдено. При наличии цепочки REPLACED_BY укажи последнюю замену детали."
+            + supplier_instruction
         )},
         {"role": "user", "content": (
             f"Факты:\n{numbered}\n\nВопрос: {question}\n\n"
@@ -162,6 +175,14 @@ def global_search(question: str, kb: KnowledgeBase, llm: LLMClient) -> Answer:
             sources.update(_community_sources(community, kb.graph))
     if not partials:
         return Answer(REFUSAL, refused=True)
+    detail_instruction = ""
+    if re.search(r"снят\w*.*производств", question.lower()):
+        detail_instruction = (
+            " Перечисли именно коды снятых деталей (P-...), а не названия узлов. "
+            "Для каждого кода проверь цепочку: модель -BELONGS_TO-> нужная линейка, "
+            "та же модель -HAS_PART-> снятая деталь, снятая деталь -REPLACED_BY-> замена. "
+            "В ответ включай левую деталь REPLACED_BY, не её замену и не детали других линеек."
+        )
     messages = [
         {"role": "system", "content": (
             "Объедини частичные ответы на вопрос, опираясь только на них и подтверждающие факты. "
@@ -171,7 +192,7 @@ def global_search(question: str, kb: KnowledgeBase, llm: LLMClient) -> Answer:
             "не считай самостоятельно и не подставляй общие суммы для всего сообщества. "
             "Вес каждого ребра - число подтверждающих его фрагментов. Сумма весов может считать "
             "один фрагмент несколько раз; не называй её числом уникальных фрагментов или инцидентов. "
-            "Если данных недостаточно, напиши: в базе знаний не найдено."
+            "Если данных недостаточно, напиши: в базе знаний не найдено." + detail_instruction
         )},
         {"role": "user", "content": f"Вопрос: {question}\nЧастичные ответы:\n" + "\n".join(partials)},
     ]
