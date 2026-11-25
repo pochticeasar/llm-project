@@ -3,7 +3,7 @@
     "mode": "global",
     "model": "qwen3:4b-instruct-2507-q4_K_M",
     "questions": 24,
-    "accuracy": 0.417,
+    "accuracy": 0.458,
     "by_type": {
       "local": {
         "questions": 5,
@@ -15,7 +15,7 @@
       },
       "global": {
         "questions": 4,
-        "accuracy": 0.75
+        "accuracy": 1.0
       },
       "tool": {
         "questions": 5,
@@ -30,7 +30,7 @@
     "source_recall": 0.375,
     "rejected_calls_rate": 0.0,
     "llm_calls_per_question": 12.417,
-    "tokens_per_question": 8176.083
+    "tokens_per_question": 8185.042
   },
   "rows": [
     {
@@ -349,7 +349,7 @@
       "steps": [],
       "rejected_steps": 0,
       "llm_calls": 13,
-      "tokens": 8868
+      "tokens": 8979
     },
     {
       "id": "dev-12",
@@ -534,8 +534,8 @@
       "id": "dev-16",
       "type": "global",
       "question": "Какие детали из руководств линейки «Бриз» сняты с производства?",
-      "answer": "вентилятор испарителя, нагреватель оттайки, компрессор",
-      "correct": false,
+      "answer": "P-2054, P-2110",
+      "correct": true,
       "refused": false,
       "fabricated": [],
       "sources": [
@@ -577,7 +577,7 @@
       "steps": [],
       "rejected_steps": 0,
       "llm_calls": 13,
-      "tokens": 8916
+      "tokens": 9020
     },
     {
       "id": "dev-17",

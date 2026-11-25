@@ -3,7 +3,7 @@
     "mode": "local",
     "model": "qwen3:4b-instruct-2507-q4_K_M",
     "questions": 24,
-    "accuracy": 0.583,
+    "accuracy": 0.667,
     "by_type": {
       "local": {
         "questions": 5,
@@ -11,7 +11,7 @@
       },
       "multihop": {
         "questions": 7,
-        "accuracy": 0.714
+        "accuracy": 1.0
       },
       "global": {
         "questions": 4,
@@ -30,7 +30,7 @@
     "source_recall": 1.0,
     "rejected_calls_rate": 0.0,
     "llm_calls_per_question": 0.875,
-    "tokens_per_question": 938.792
+    "tokens_per_question": 960.208
   },
   "rows": [
     {
@@ -99,7 +99,7 @@
       "id": "dev-03",
       "type": "local",
       "question": "Кто поставляет деталь P-3062C?",
-      "answer": "Поставщик детали P-3062C — ГидроТех.",
+      "answer": "ГидроТех",
       "correct": true,
       "refused": false,
       "fabricated": [],
@@ -115,7 +115,7 @@
       "steps": [],
       "rejected_steps": 0,
       "llm_calls": 1,
-      "tokens": 651
+      "tokens": 692
     },
     {
       "id": "dev-04",
@@ -253,8 +253,8 @@
       "id": "dev-08",
       "type": "multihop",
       "question": "Кто сейчас поставляет деталь узла «реле давления» для модели GS-520?",
-      "answer": "Деталь «реле давления» для модели GS-520:\n\n- GS-520 -FAILED-> реле давления → в модели GS-520 зафиксирован отказ узла «реле давления»\n- P-3126 -IS_A-> реле давления → деталь P-3126 является «реле давления»\n- P-3126 -REPLACED_BY-> P-3126B → деталь P-3126 заменена на P-3126B\n\nТеперь определим, кто поставляет деталь «реле давления» для GS-520.\n\nВ графе нет прямого упоминания поставщика для детали «реле давления» или для P-3126/P-3126B.\n\nВсе факты касаются отказов, принадлежности моделей и деталей, но **нет факта о поставщике** ни для P-3126, ни для P-3126B.\n\nСледовательно, постав",
-      "correct": false,
+      "answer": "Деталь «реле давления» в модели GS-520:\n\n- GS-520 -FAILED-> реле давления (указывает на отказ узла «реле давления»)\n- P-3126 -IS_A-> реле давления → значит, P-3126 — это реле давления\n- GS-520 -HAS_PART-> P-3126 → значит, в GS-520 установлена деталь P-3126\n- P-3126 -REPLACED_BY-> P-3126B → последняя замена детали P-3126 — P-3126B\n- P-3126B -SUPPLIED_BY-> АвтоматикаСевер → поставщик детали P-3126B\n\nОтвет: **АвтоматикаСевер**",
+      "correct": true,
       "refused": false,
       "fabricated": [],
       "sources": [
@@ -280,7 +280,7 @@
       "steps": [],
       "rejected_steps": 0,
       "llm_calls": 1,
-      "tokens": 1263
+      "tokens": 1461
     },
     {
       "id": "dev-09",
@@ -406,9 +406,9 @@
       "id": "dev-12",
       "type": "multihop",
       "question": "Деталь какого поставщика нужна при ошибке E-14 на AR-320?",
-      "answer": "В базе знаний не найдено.",
-      "correct": false,
-      "refused": true,
+      "answer": "Ошибка E-14 указывает на отказ датчика температуры (по INDICATES).  \nAR-320 имеет отказ датчика температуры (по FAILED).  \nAR-320 содержит деталь P-1118 (по HAS_PART).  \nP-1118 является датчиком температуры (по IS_A).  \nP-1118 заменяется на P-1118B (по REPLACED_BY).  \nP-1118B поставляется ТермоПрибором (по SUPPLIED_BY).  \n\nПоследняя деталь в цепочке замены — P-1118B, поставляется ТермоПрибором.\n\nОтвет: ТермоПрибор",
+      "correct": true,
+      "refused": false,
       "fabricated": [],
       "sources": [
         "bulletin_SB-2025-02.md",
@@ -434,7 +434,7 @@
       "steps": [],
       "rejected_steps": 0,
       "llm_calls": 1,
-      "tokens": 558
+      "tokens": 833
     },
     {
       "id": "dev-13",
@@ -627,9 +627,9 @@
       "id": "dev-19",
       "type": "tool",
       "question": "Сколько стоит деталь узла «контроллер» для модели BZ-110?",
-      "answer": "в базе знаний не найдено",
+      "answer": "Подтверждённые факты графа:\n1. BZ-110 -HAS_PART-> P-2022\n2. P-2022 -IS_A-> контроллер",
       "correct": false,
-      "refused": true,
+      "refused": false,
       "fabricated": [],
       "sources": [
         "manual_BZ-110.md",
